@@ -1,0 +1,54 @@
+# Постарайтесь использовать то, что мы прошли на уроке при решении этого ДЗ,
+# вспомните про zip(), map(), lambda, посмотрите где лучше с ними, а где
+# они излишни!
+
+# Задание - 1
+# Создайте функцию, принимающую на вход Имя, возраст и город проживания человека
+# Функция должна возвращать строку вида "Василий, 21 год(а),
+# проживает в городе Москва"
+
+
+def pers_data_form (name, age, town):
+    string = ('{}, {}, проживает в городе {}.').format(name, age, town)
+    return string
+
+a = input('name')
+b = input('age')
+c = input('town')
+
+print(pers_data_form(a,b,c))
+
+# Задание - 2
+# Создайте функцию, принимающую на вход 3 числа, и возвращающую
+# наибольшее из них
+
+def max_of_three (x, y, z):
+    mx = max(x,y,z)
+    return mx
+
+aa = input('A=')
+bb = input('B=')
+cc = input('C=')
+
+print(max_of_three(aa, bb, cc))
+
+# Задание - 3
+# Создайте функцию, принимающую неограниченное количество строковых аргументов,
+# верните самую длинную строку из полученных аргументов
+
+
+def longest_string(*args):
+    lenghts = []
+    for i in range(len(args)):
+         lenghts.append(len(args[i]))
+    mx = max(lenghts)
+    long_str_ind = lenghts.index(mx)
+    long_str = args[long_str_ind]
+
+    return long_str
+
+aa = str(input('A='))
+bb = str(input('B='))
+cc = str(input('C='))
+
+print(longest_string(aa, bb, cc+bb, cc, bb+aa))
