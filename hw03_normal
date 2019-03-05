@@ -1,0 +1,67 @@
+# Задание - 1
+# Вам даны 2 списка одинаковой длины, в первом списке имена людей,
+# во втором зарплаты,
+# вам необходимо получить на выходе словарь, где ключ - имя,
+# значение - зарплата.
+# Запишите результаты в файл salary.txt так, чтобы на каждой строке
+# было 2 столбца,
+# столбцы разделяются пробелом, тире, пробелом. в первом имя,
+# во втором зарплата,
+# например: Vasya - 5000
+# После чего прочитайте файл, выведите построчно имя и зарплату
+# минус 13% (налоги ведь),
+# Есть условие, не отображать людей получающих более зарплату 500000,
+# как именно выполнить условие решать вам, можете не писать в файл
+# можете не выводить, подумайте какой способ будет наиболее
+# правильным и оптимальным, если скажем эти файлы потом придется передавать.
+# Так же при выводе имя должно быть полностью в верхнем регистре!
+# Подумайте вспоминая урок, как это можно сделать максимально кратко,
+# используя возможности языка Python.
+import random
+workers_num = int(input('Количество сотрудников?: ')) - 1 # с учётом, что 1й сотрудник имеет номер "0"
+name_file = open("names_hw03_normal.txt", 'r',) # открываем файл с кучей имён
+full_name_list = [line.strip() for line in name_file] # создаём из него список
+# print(full_name_list)
+name_file.close()
+name_list = [] # создаём список из workers_num случайных имён
+length = len(full_name_list) # определяем кол-во имеющихся имен
+i = 0
+while i <= workers_num:
+    name_list.append(full_name_list[random.randint(0, len(full_name_list))])
+    i+=1
+# print(name_list)
+salary_list = [] # список из workers_num случайных з/п в диапазоне 50-999 т.р.
+i = 0
+while i <= workers_num:
+    salary_list.append(random.randint(50000, 999000))
+    i += 1
+# print(salary_list)
+dict_name_salary = dict(zip(name_list, salary_list)) # создаём словарь "имя + зарплата"
+# print(dict_name_salary)
+name_salary_file = open('salary.txt', 'w', encoding='utf-8') # создаём файл на запись списка "имя-зарплата"
+# out_dict_name_salary
+i = 0
+while i <= workers_num:
+    name_salary_file.write(str(name_list[i]+' - '+str(salary_list[i])+'\n')) # записываем файл построчно через " - "
+    i += 1
+name_salary_file.close()
+new_name_salary_file = open("salary.txt", 'r', encoding='utf-8') # открываем файл со столбиками на чтение
+new_name_salary_list = [iline.strip() for iline in new_name_salary_file] # создаём из него список
+# print(new_name_salary_list)
+new_name_salary_file.close()
+name_nettsalary_list = [] # создаём список для зарплат за вычетом налога
+i = 0
+while i <= workers_num: # заполняем его
+    b,c = (new_name_salary_list[i].split('-')) # разбиваем каждую строчку на имя и зарплату
+    d = round((int(c)*.87),2) # преобразуем з/п в число и вычитаем налог. округляем до копеек
+    name_nettsalary_list.append(b.upper()+str(d)) # делаем имя КАПСОМ, з/п - строкой, и заносим в список
+    if d <= 500000: # если чистая з/п ниже 500 т.р - печатаем
+        print(str(i)+'.',name_nettsalary_list[i]) # выводим и номер, как в файле, для контроля отсева богачей
+    i += 1
+# print(name_nettsalary_list)
+
+
+
+
+
+
